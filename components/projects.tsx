@@ -351,19 +351,24 @@ export function Projects() {
   const [active, setActive] = useState<number | null>(null)
   const [savedScroll, setSavedScroll] = useState(0)
 
+  const modalOpen = active !== null
+
   useEffect(() => {
     if (active === null) return
+
     const scrollY = window.scrollY
+
     document.body.style.position = 'fixed'
     document.body.style.top = `-${scrollY}px`
     document.body.style.width = '100%'
+
     return () => {
       document.body.style.position = ''
       document.body.style.top = ''
       document.body.style.width = ''
       window.scrollTo(0, scrollY)
     }
-  }, [active])
+  }, [modalOpen])
 
   return (
     <section id="projetos" className="mx-auto max-w-[1600px] px-6 py-28 md:px-12 md:py-40">
