@@ -18,27 +18,82 @@ interface Project {
   year: string
   software: string
   cover: string
+  pdf: string
   description: string
   gallery: GalleryItem[]
 }
 
 const projects: Project[] = [
-  {
-    index: '01',
-    name: 'Travessia Mooca',
-    category: 'Projeto Acadêmico',
-    year: '2026',
-    software: 'AutoCAD, SketchUp, Enscape',
-    cover: '/images/project-04.png',
-    description:
-      'Requalificação urbana de um trecho do bairro da Mooca, propondo novas conexões entre o tecido histórico e a cidade contemporânea. O projeto trabalha permeabilidade, praças de convívio e uma leitura sensível da memória industrial local.',
-    gallery: [
-      { src: '/images/project-04.png', title: 'Implantação Geral', caption: 'Relação da proposta com o entorno urbano existente.' },
-      { src: '/images/gallery-01.png', title: 'Percurso Público', caption: 'Estudo de circulação e permanências ao longo da travessia.' },
-      { src: '/images/detail.png', title: 'Detalhe de Pavimentação', caption: 'Materialidade e transição entre os espaços públicos.' },
-      { src: '/images/project-05.png', title: 'Vista da Praça', caption: 'Perspectiva do principal ponto de encontro do projeto.' },
-    ],
-  },
+{
+  index: '01',
+  name: 'Travessia da Mooca',
+  category: 'Projeto Acadêmico',
+  year: '2026',
+  software: 'AutoCAD, SketchUp, Enscape',
+  cover: '/projects/mooca/mooca-01-fachada.jpg',
+  pdf: '/projects/mooca/mooca-prancha.pdf',
+
+  description:
+    'Projeto de requalificação urbana desenvolvido para a disciplina Projeto Integrado: Patrimônio e Institucional, propondo a reconexão entre a Mooca histórica e a cidade contemporânea por meio da recuperação de um antigo galpão industrial e da criação de novos espaços públicos de convivência. A proposta transforma o patrimônio existente em um equipamento cultural aberto à cidade, valorizando a memória industrial do bairro e incentivando permanência, cultura e integração social.',
+
+  gallery: [
+    {
+      src: '/projects/mooca/mooca-02-implantacao.png',
+      title: 'Implantação Geral',
+      caption:
+        'Implantação do conjunto evidenciando a relação entre o edifício existente, os novos espaços públicos e o entorno urbano.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-03-mapa.png',
+      title: 'Leitura Urbana',
+      caption:
+        'Análise do contexto urbano da Mooca, identificando fluxos, conexões e potencialidades que orientaram o desenvolvimento do projeto.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-04-partido.png',
+      title: 'Partido Arquitetônico',
+      caption:
+        'Diagrama conceitual que sintetiza as principais estratégias adotadas para preservar a memória industrial e criar novos espaços de uso coletivo.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-05-terreo.png',
+      title: 'Planta do Pavimento Térreo',
+      caption:
+        'Organização dos espaços públicos, áreas expositivas e circulação principal do edifício.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-06-pavimento.png',
+      title: 'Pavimento Superior',
+      caption:
+        'Distribuição dos ambientes complementares e continuidade da experiência arquitetônica ao longo do percurso.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-07-interior.jpg',
+      title: 'Perspectiva Interna',
+      caption:
+        'Visualização do espaço interno evidenciando iluminação natural, estrutura existente e atmosfera proposta.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-08-isometrica.jpg',
+      title: 'Isométrica Explodida',
+      caption:
+        'Representação tridimensional destacando os principais elementos construtivos e a organização espacial do projeto.'
+    },
+
+    {
+      src: '/projects/mooca/mooca-09-corte-aa.png',
+      title: 'Corte AA',
+      caption:
+        'Corte longitudinal mostrando a relação entre os pavimentos, estrutura e espacialidade interna.'
+    }
+  ],
+},
   {
     index: '02',
     name: 'Studio 20m²',
@@ -167,11 +222,18 @@ function ProjectModal({
 }) {
   const modalRef = useRef<HTMLDivElement>(null)
   const [slide, setSlide] = useState(0)
+  const [direction, setDirection] = useState(1)
+  const [isSliding, setIsSliding] = useState(false)
   const total = project.gallery.length
 
   const go = useCallback(
-    (dir: number) => setSlide((s) => (s + dir + total) % total),
-    [total],
+    (dir: number) => {
+      if (isSliding) return
+  
+      setDirection(dir)
+      setIsSliding(true)
+    },
+    [isSliding],
   )
 
   useEffect(() => {
@@ -182,6 +244,13 @@ function ProjectModal({
       behavior: 'smooth',
     })
   }, [project.index])
+  
+  useEffect(() => {
+    project.gallery.forEach((item) => {
+      const img = new window.Image()
+      img.src = item.src
+    })
+  }, [project])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -194,6 +263,8 @@ function ProjectModal({
   }, [onClose, go])
 
   const current = project.gallery[slide]
+  const nextSlide = (slide + direction + total) % total
+  const nextImage = project.gallery[nextSlide]
 
   return (
     <div
@@ -260,16 +331,53 @@ function ProjectModal({
 
         {/* Carousel */}
         <div className="mt-20">
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-secondary">
-            <Image
-              key={current.src + slide}
-              src={current.src || '/placeholder.svg'}
-              alt={current.title}
-              fill
-              sizes="(max-width: 1400px) 100vw, 1400px"
-              className="modal-fade object-cover"
-            />
-          </div>
+        <div className="relative w-full overflow-hidden">
+  <div
+    className={`flex w-full justify-center ${
+      isSliding
+        ? direction === 1
+          ? 'carousel-current-left'
+          : 'carousel-current-right'
+        : ''
+    }`}
+  >
+    <div className="relative max-w-full overflow-hidden rounded-2xl bg-secondary">
+      <Image
+        src={current.src || '/placeholder.svg'}
+        alt={current.title}
+        width={2400}
+        height={1600}
+        sizes="(max-width: 1400px) 100vw, 1400px"
+        className="block h-auto max-h-[75vh] w-auto max-w-full object-contain"
+      />
+    </div>
+  </div>
+
+  {isSliding && (
+    <div
+      className={`absolute inset-0 flex w-full justify-center ${
+        direction === 1
+          ? 'carousel-next-from-right'
+          : 'carousel-next-from-left'
+      }`}
+      onAnimationEnd={() => {
+        setSlide(nextSlide)
+        setIsSliding(false)
+      }}
+    >
+      <div className="relative max-w-full overflow-hidden rounded-2xl bg-secondary">
+        <Image
+          src={nextImage.src || '/placeholder.svg'}
+          alt={nextImage.title}
+          width={2400}
+          height={1600}
+          sizes="(max-width: 1400px) 100vw, 1400px"
+          className="block h-auto max-h-[75vh] w-auto max-w-full object-contain"
+        />
+      </div>
+    </div>
+  )}
+</div>
 
           <div className="mt-6 flex items-start justify-between gap-8">
             <div className="max-w-md">
@@ -304,14 +412,16 @@ function ProjectModal({
 
         {/* PDF button */}
         <div className="mt-16 border-t border-border pt-10">
-          <a
-            href="#"
-            className="inline-flex items-center gap-3 border border-foreground px-8 py-4 text-[11px] uppercase tracking-wide-sm text-foreground transition-colors duration-500 hover:bg-foreground hover:text-background"
-          >
-            Abrir prancha em PDF
-            <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-          </a>
-        </div>
+        <a
+         href={project.pdf}
+        target="_blank"
+         rel="noopener noreferrer"
+        className="inline-flex items-center gap-3 border border-foreground px-8 py-4 text-[11px] uppercase tracking-wide-sm text-foreground transition-colors duration-500 hover:bg-foreground hover:text-background"
+      >
+         Abrir prancha em PDF
+        <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+     </a>
+   </div>
 
         {/* Next project */}
         <button
