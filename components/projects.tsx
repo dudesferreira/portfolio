@@ -95,20 +95,64 @@ const projects: Project[] = [
   ],
 },
   {
-    index: '02',
-    name: 'Studio 20m²',
-    category: 'Interiores',
-    year: '2024',
-    software: 'SketchUp, Enscape',
-    cover: '/images/project-02.png',
-    description:
-      'Projeto de um studio compacto de 20m² onde cada elemento cumpre múltiplas funções. A marcenaria sob medida e uma paleta neutra ampliam a percepção do espaço, priorizando conforto e funcionalidade no essencial.',
-    gallery: [
-      { src: '/images/project-02.png', title: 'Ambiente Integrado', caption: 'Organização de dormir, estar e cozinhar em um único volume.' },
-      { src: '/images/gallery-02.png', title: 'Iluminação Natural', caption: 'Aproveitamento da luz para ampliar a sensação de amplitude.' },
-      { src: '/images/detail.png', title: 'Marcenaria Sob Medida', caption: 'Soluções de armazenamento integradas ao mobiliário.' },
-    ],
-  },
+    
+      index: '02',
+      name: 'Studio 20m²',
+      category: 'Projeto de Interiores',
+      year: '2026',
+      software: 'SketchUp, Enscape',
+    
+      cover: '/projects/studio/studio-01-capa.png',
+      
+      pdf: '/projects/studio/studio-prancha.pdf',
+    
+      description:
+        'Projeto de interiores para um studio compacto de 20m², desenvolvido a partir da necessidade de conciliar diferentes funções em uma área reduzida. A proposta organiza estar, cozinha, banheiro e dormitório em uma composição integrada, utilizando marcenaria sob medida e um mezanino para ampliar o aproveitamento vertical do espaço. O projeto busca equilibrar funcionalidade, conforto e uma linguagem visual contemporânea.',
+    
+      gallery: [
+        {
+          src: '/projects/studio/studio-02-planta.png',
+          title: 'Planta Baixa',
+          caption:
+            'Distribuição dos ambientes e das principais funções do studio, priorizando circulação e aproveitamento da área disponível.'
+        },
+    
+        {
+          src: '/projects/studio/studio-03-mezanino.png',
+          title: 'Planta do Mezanino',
+          caption:
+            'Solução de aproveitamento vertical criada para acomodar o dormitório sem comprometer a integração dos ambientes inferiores.'
+        },
+    
+        {
+          src: '/projects/studio/studio-04-corte.jpg',
+          title: 'Corte',
+          caption:
+            'Relação entre os diferentes níveis do projeto, evidenciando a altura do ambiente principal e a inserção do mezanino.'
+        },
+    
+        {
+          src: '/projects/studio/studio-05-interior.png',
+          title: 'Perspectiva Interna',
+          caption:
+            'Visualização do ambiente integrado, destacando a relação entre mobiliário, iluminação, materiais e circulação.'
+        },
+    
+        {
+          src: '/projects/studio/studio-06-isometrica.jpg',
+          title: 'Isométrica',
+          caption:
+            'Representação tridimensional do conjunto, evidenciando a organização espacial e a relação entre os diferentes elementos do projeto.'
+        },
+    
+        {
+          src: '/projects/studio/studio-07-rendermezanino.png',
+          title: 'Perspectiva do Mezanino',
+          caption:
+            'Visualização do mezanino e sua relação com o ambiente principal, destacando a solução espacial e a atmosfera do projeto.'
+        }
+      ],
+    },
   {
     index: '03',
     name: 'Apartamento EBAC (SketchUp)',
