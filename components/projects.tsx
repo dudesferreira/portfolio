@@ -9,6 +9,8 @@ interface GalleryItem {
   src: string
   title: string
   caption: string
+  type?: 'image' | 'video'
+  video?: string
 }
 
 interface Project {
@@ -227,37 +229,57 @@ const projects: Project[] = [
         },
       ],
     },
-  {
-    index: '05',
-    name: 'Vinícola',
-    category: 'Projeto Comercial',
-    year: '2024',
-    software: 'SketchUp, Enscape, AutoCAD',
-    cover: '/images/project-01.png',
-    description:
-      'Concepção de uma vinícola que dialoga com a paisagem rural. Volumes horizontais em concreto e madeira abrigam produção, degustação e contemplação, guiados pela entrada de luz natural e pelas vistas para o vinhedo.',
-    gallery: [
-      { src: '/images/project-01.png', title: 'Volume Principal', caption: 'Implantação horizontal integrada ao terreno.' },
-      { src: '/images/project-01-interior.png', title: 'Sala de Degustação', caption: 'Ambiente interno com materiais naturais.' },
-      { src: '/images/gallery-01.png', title: 'Luz e Sombra', caption: 'Estudo da luz natural nos espaços de produção.' },
-      { src: '/images/project-05.png', title: 'Vista Externa', caption: 'Perspectiva ao entardecer sobre o vinhedo.' },
-    ],
-  },
-  {
-    index: '06',
-    name: 'Visualizações Arquitetônicas',
-    category: 'Visualização',
-    year: '2024',
-    software: 'SketchUp, Enscape, Photoshop',
-    cover: '/images/project-05.png',
-    description:
-      'Seleção de estudos de imagem que investigam luz, sombra e materialidade em pavilhões conceituais. A renderização fotorrealista é usada como ferramenta de projeto, testando atmosferas antes da construção.',
-    gallery: [
-      { src: '/images/project-05.png', title: 'Hora Dourada', caption: 'Estudo de iluminação natural ao entardecer.' },
-      { src: '/images/gallery-01.png', title: 'Contraste', caption: 'Composição de luz e sombra sobre o concreto.' },
-      { src: '/images/hero.png', title: 'Volumetria', caption: 'Estudo de massas e implantação na paisagem.' },
-    ],
-  },
+
+    {
+      index: '05',
+      name: 'Visualizações Arquitetônicas',
+      category: 'Visualização',
+      year: 'Seleção de trabalhos',
+      software: 'SketchUp, V-Ray, Enscape, Photoshop',
+    
+      cover: '/projects/visualizacoes/piscina-01.png',
+    
+      pdf: '',
+    
+      description:
+        'Seleção de trabalhos de visualização arquitetônica desenvolvidos para diferentes projetos, explorando modelagem tridimensional, iluminação, materiais, composição e pós-produção. O conjunto reúne imagens estáticas e materiais audiovisuais desenvolvidos para apresentação arquitetônica e comunicação digital.',
+    
+      gallery: [
+        {
+          src: '/projects/visualizacoes/piscina-01.png',
+          title: 'Piscina Externa',
+          caption:
+            'Renderização fotorrealista desenvolvida para estudo de paisagismo e integração entre a área externa e a arquitetura, explorando reflexos da água, materiais, vegetação e composição do cenário.',
+          type: 'image',
+        },
+    
+        {
+          src: '/projects/visualizacoes/piscina-02.png',
+          title: 'Piscina Externa',
+          caption:
+            'Segunda perspectiva do estudo de visualização, explorando diferentes enquadramentos, iluminação e composição dos elementos de paisagismo e mobiliário externo.',
+          type: 'image',
+        },
+    
+        {
+          src: '/projects/visualizacoes/privillege-thumb.png',
+          title: 'Apartamento Privillege',
+          caption:
+            'Material audiovisual desenvolvido para apresentação de um empreendimento residencial, com foco na valorização dos ambientes internos, acabamentos e atmosfera de alto padrão.',
+          type: 'video',
+          video: '/projects/visualizacoes/privillege.mp4',
+        },
+    
+        {
+          src: '/projects/visualizacoes/villa-campestre-thumb.png',
+          title: 'Casa Villa Campestre',
+          caption:
+            'Material audiovisual desenvolvido para apresentação de um projeto residencial de alto padrão, utilizando iluminação, materiais e ambientação para construir uma representação realista e acolhedora da arquitetura.',
+          type: 'video',
+          video: '/projects/visualizacoes/villa-campestre.mp4',
+        },
+      ],
+    },
 ]
 
 function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
@@ -332,6 +354,10 @@ function ProjectModal({
       behavior: 'smooth',
     })
   }, [project.index])
+
+  useEffect(() => {
+    setVideoPlaying(false)
+  }, [slide, project.index])
   
   useEffect(() => {
     project.gallery.forEach((item) => {
@@ -353,6 +379,7 @@ function ProjectModal({
   const current = project.gallery[slide]
   const nextSlide = (slide + direction + total) % total
   const nextImage = project.gallery[nextSlide]
+  const [videoPlaying, setVideoPlaying] = useState(false)
 
   return (
     <div
@@ -429,16 +456,50 @@ function ProjectModal({
         : ''
     }`}
   >
-    <div className="relative max-w-full overflow-hidden rounded-2xl bg-secondary">
-      <Image
-        src={current.src || '/placeholder.svg'}
-        alt={current.title}
-        width={2400}
-        height={1600}
-        sizes="(max-width: 1400px) 100vw, 1400px"
-        className="block h-auto max-h-[75vh] w-auto max-w-full object-contain"
+<div className="relative max-w-full overflow-hidden rounded-2xl bg-secondary">
+  {current.type === 'video' && current.video ? (
+    videoPlaying ? (
+      <video
+        src={current.video}
+        controls
+        autoPlay
+        playsInline
+        className="block max-h-[75vh] w-auto max-w-full"
       />
-    </div>
+    ) : (
+      <button
+        type="button"
+        onClick={() => setVideoPlaying(true)}
+        className="group relative block w-full"
+        aria-label={`Reproduzir vídeo: ${current.title}`}
+      >
+        <Image
+          src={current.src || '/placeholder.svg'}
+          alt={current.title}
+          width={2400}
+          height={1600}
+          sizes="(max-width: 1400px) 100vw, 1400px"
+          className="block h-auto max-h-[75vh] w-auto max-w-full object-contain"
+        />
+
+        <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-500 group-hover:bg-black/10">
+          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 shadow-xl transition-transform duration-500 group-hover:scale-110">
+            <span className="ml-1 text-2xl text-black">▶</span>
+          </span>
+        </span>
+      </button>
+    )
+  ) : (
+    <Image
+      src={current.src || '/placeholder.svg'}
+      alt={current.title}
+      width={2400}
+      height={1600}
+      sizes="(max-width: 1400px) 100vw, 1400px"
+      className="block h-auto max-h-[75vh] w-auto max-w-full object-contain"
+    />
+  )}
+</div>
   </div>
 
   {isSliding && (
@@ -499,17 +560,19 @@ function ProjectModal({
         </div>
 
         {/* PDF button */}
-        <div className="mt-16 border-t border-border pt-10">
-        <a
-         href={project.pdf}
-        target="_blank"
-         rel="noopener noreferrer"
-        className="inline-flex items-center gap-3 border border-foreground px-8 py-4 text-[11px] uppercase tracking-wide-sm text-foreground transition-colors duration-500 hover:bg-foreground hover:text-background"
-      >
-         Abrir prancha em PDF
-        <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-     </a>
-   </div>
+        {project.pdf && (
+          <div className="mt-16 border-t border-border pt-10">
+            <a
+              href={project.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 border border-foreground px-8 py-4 text-[11px] uppercase tracking-wide-sm text-foreground transition-colors duration-500 hover:bg-foreground hover:text-background"
+            >
+              Abrir prancha em PDF
+              <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </a>
+          </div>
+        )}
 
         {/* Next project */}
         <button
