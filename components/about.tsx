@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Reveal } from './reveal'
 
 const softwareColumns = [
@@ -15,19 +14,8 @@ export function About() {
       </Reveal>
 
       <div className="mt-12 grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
-        <div className="lg:col-span-5">
-          <Reveal className="img-zoom relative aspect-[3/4] w-full">
-            <Image
-              src="/images/portrait.png"
-              alt="Retrato de Eduardo Pires Ferreira"
-              fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
-            />
-          </Reveal>
-        </div>
 
-        <div className="lg:col-span-7 lg:pt-10">
+        <div className="lg:col-span-12 lg:pt-10">
           <Reveal as="h2" className="max-w-2xl text-balance font-serif text-3xl font-light leading-[1.15] md:text-5xl">
             Sobre mim
           </Reveal>

@@ -63,7 +63,7 @@ export function Contact() {
 
             <div className="pt-6">
               <a
-                href="#"
+                href="/documents/curriculo-eduardo-pires-ferreira.pdf"
                 className="inline-flex items-center gap-3 bg-foreground px-8 py-3 text-[11px] uppercase tracking-wide-sm text-background transition-opacity duration-300 hover:opacity-85"
               >
                 Baixar Currículo
