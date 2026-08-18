@@ -103,7 +103,7 @@ const projects: Project[] = [
       software: 'SketchUp, Enscape',
     
       cover: '/projects/studio/studio-01-capa.png',
-      
+
       pdf: '/projects/studio/studio-prancha.pdf',
     
       description:
@@ -153,36 +153,80 @@ const projects: Project[] = [
         }
       ],
     },
-  {
-    index: '03',
-    name: 'Apartamento EBAC (SketchUp)',
-    category: 'Modelagem 3D',
-    year: '2023',
-    software: 'SketchUp, Enscape',
-    cover: '/images/project-01-interior.png',
-    description:
-      'Modelagem tridimensional de um apartamento desenvolvido durante o curso da EBAC. O trabalho explora a construção volumétrica dos ambientes, o estudo de materiais e a produção de imagens realistas para apresentação.',
-    gallery: [
-      { src: '/images/project-01-interior.png', title: 'Sala de Estar', caption: 'Composição de mobiliário e revestimentos em 3D.' },
-      { src: '/images/gallery-01.png', title: 'Circulação', caption: 'Estudo de fluxo e integração entre ambientes.' },
-      { src: '/images/project-03.png', title: 'Home Office', caption: 'Ambiente de trabalho modelado com iluminação natural.' },
-    ],
-  },
-  {
-    index: '04',
-    name: 'Apartamento EBAC (AutoCAD)',
-    category: 'Projeto Técnico',
-    year: '2023',
-    software: 'AutoCAD',
-    cover: '/images/project-03.png',
-    description:
-      'Documentação técnica do mesmo apartamento, com plantas, cortes e detalhamentos executados em AutoCAD. O foco está no rigor da representação, cotas e legibilidade das pranchas para execução em obra.',
-    gallery: [
-      { src: '/images/project-03.png', title: 'Planta Baixa', caption: 'Organização dos ambientes e dimensionamento.' },
-      { src: '/images/detail.png', title: 'Detalhamento', caption: 'Ampliações e especificações construtivas.' },
-      { src: '/images/gallery-02.png', title: 'Cortes', caption: 'Estudo de alturas e relações verticais do projeto.' },
-    ],
-  },
+    {
+      index: '03',
+      name: 'Apartamento EBAC (SketchUp)',
+      category: 'Modelagem 3D',
+      year: '2024',
+      software: 'SketchUp, V-Ray, Photoshop',
+    
+      cover: '/projects/ebac-sketchup/jantar-e-cozinha.jpg',
+
+      pdf: '/projects/ebac-sketchup/prancha-ebac-sketchup.pdf',
+    
+      description:
+        'Modelagem e visualização de um apartamento residencial desenvolvidas durante o curso SketchUp & V-Ray do Zero ao Pro, com foco na construção tridimensional dos ambientes, composição de interiores, aplicação de materiais e produção de imagens para apresentação arquitetônica.',
+    
+      gallery: [
+        {
+          src: '/projects/ebac-sketchup/quarto.jpg',
+          title: 'Quarto',
+          caption:
+            'Estudo de composição e materialidade do quarto, explorando mobiliário, iluminação e ambientação a partir da modelagem tridimensional.'
+        },
+    
+        {
+          src: '/projects/ebac-sketchup/sala-de-tv.jpg',
+          title: 'Sala de TV',
+          caption:
+            'Visualização da sala de TV desenvolvida a partir do modelo 3D, com estudo de mobiliário, revestimentos, iluminação e atmosfera do ambiente.'
+        },
+      ],
+    },
+    {
+      index: '04',
+      name: 'Apartamento EBAC (AutoCAD)',
+      category: 'Projeto Técnico',
+      year: '2025',
+      software: 'AutoCAD',
+    
+      cover: '/projects/ebac-autocad/autocad-01-planta.png',
+
+      pdf: '/projects/ebac-autocad/prancha-geral.pdf',
+    
+      description:
+        'Exercício desenvolvido durante o curso AutoCAD do Zero ao Pro, com foco na representação técnica e documentação de um projeto residencial. O trabalho envolve desenvolvimento de planta, planta de forro e iluminação, estudo de paginação de pisos, organização de mobiliário e representação dos ambientes, explorando diferentes etapas da documentação arquitetônica em AutoCAD.',
+    
+      gallery: [
+        {
+          src: '/projects/ebac-autocad/autocad-01-planta.png',
+          title: 'Planta Baixa',
+          caption:
+            'Planta geral do projeto residencial, com organização dos ambientes, mobiliário, áreas externas e principais elementos da composição espacial.',
+        },
+    
+        {
+          src: '/projects/ebac-autocad/autocad-02-forro.png',
+          title: 'Forro e Iluminação',
+          caption:
+            'Estudo de forro e iluminação, com definição dos tipos de luminárias, distribuição dos pontos de luz e diferentes soluções de acabamento.',
+        },
+    
+        {
+          src: '/projects/ebac-autocad/autocad-03-piso.png',
+          title: 'Piso e Materialidade',
+          caption:
+            'Desenvolvimento da paginação de pisos e definição dos diferentes revestimentos utilizados nos ambientes e áreas externas.',
+        },
+    
+        {
+          src: '/projects/ebac-autocad/autocad-04-layout.png',
+          title: 'Layout e Ambientação',
+          caption:
+            'Estudo de mobiliário e ambientação dos espaços, relacionando a representação técnica com referências de materiais, interiores e paisagismo.',
+        },
+      ],
+    },
   {
     index: '05',
     name: 'Vinícola',
